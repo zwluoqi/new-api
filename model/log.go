@@ -260,11 +260,11 @@ func DeleteOldLog(ctx context.Context, targetTimestamp int64, limit int) (int64,
 			return total, result.Error
 		}
 
-		if 0 == result.RowsAffected {
+		total += result.RowsAffected
+
+		if result.RowsAffected < int64(limit) {
 			break
 		}
-
-		total += result.RowsAffected
 	}
 
 	return total, nil
