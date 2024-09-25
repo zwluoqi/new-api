@@ -26,7 +26,7 @@ require (
 	github.com/pkoukk/tiktoken-go v0.1.7
 	github.com/samber/lo v1.39.0
 	github.com/shirou/gopsutil v3.21.11+incompatible
-	github.com/stripe/stripe-go/v76 v76.21.0
+	github.com/stripe/stripe-go/v79 v79.12.0
 	golang.org/x/crypto v0.26.0
 	golang.org/x/image v0.15.0
 	golang.org/x/net v0.28.0
