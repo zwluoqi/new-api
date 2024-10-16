@@ -263,8 +263,8 @@ const TopUp = () => {
                     <Form.Input
                       disabled={!paymentEnabled}
                       field={'redemptionCount'}
-                      label={'实付金额：' + renderAmount()}
-                      placeholder={'充值数量，必须整数，最低' + minTopUp + '$'}
+                      label={'实付金额：' + renderAmount()+'（实到：'+chargedAmount+'$）'}
+                      placeholder={'充值数量，必须整数，最低' + minTopUp}
                       name='redemptionCount'
                       type={'number'}
                       value={topUpCount}
