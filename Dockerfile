@@ -1,13 +1,13 @@
-FROM node:20 AS builder
+FROM oven/bun:latest AS builder
 
 WORKDIR /build
 COPY web/package.json .
-RUN yarn install
+RUN bun install
 COPY ./web .
 COPY ./VERSION .
-RUN DISABLE_ESLINT_PLUGIN='true' VITE_REACT_APP_VERSION=$(cat VERSION) yarn build
+RUN DISABLE_ESLINT_PLUGIN='true' VITE_REACT_APP_VERSION=$(cat VERSION) bun run build
 
-FROM golang AS builder2
+FROM golang:1.23.5 AS builder2
 
 ENV GO111MODULE=on \
     CGO_ENABLED=1 \
