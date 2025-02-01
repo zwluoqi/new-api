@@ -1,4 +1,4 @@
-FROM node:20 as builder
+FROM node:20 AS builder
 
 WORKDIR /build
 COPY web/package.json .
@@ -25,7 +25,7 @@ FROM alpine
 RUN apk update \
     && apk upgrade \
     && apk add --no-cache ca-certificates tzdata \
-    && update-ca-certificates 2>/dev/null || true
+    && update-ca-certificates
 
 COPY --from=builder2 /build/one-api /
 EXPOSE 3000
