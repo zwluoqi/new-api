@@ -337,6 +337,9 @@ func GetCompletionRatio(name string) float64 {
 	} else if strings.HasPrefix(name, "g-") {
 		name = "g-*"
 	}
+	if ratio, ok := CompletionRatio[name]; ok {
+		return ratio
+	}
 	if strings.HasPrefix(name, "gpt-3.5") {
 		if strings.HasSuffix(name, "0125") {
 			return 3
@@ -395,7 +398,7 @@ func GetCompletionRatio(name string) float64 {
 		}
 	}
 	if strings.HasPrefix(name, "deepseek") {
-		return 2
+		return 4
 	}
 	if strings.HasPrefix(name, "ERNIE-Speed-") {
 		return 2
@@ -414,10 +417,7 @@ func GetCompletionRatio(name string) float64 {
 	case "llama3-70b-8192":
 		return 0.79 / 0.59
 	}
-	if ratio, ok := CompletionRatio[name]; ok {
-		return ratio
-	}
-	return 1
+	return 4
 }
 
 func GetCompletionRatioMap() map[string]float64 {
