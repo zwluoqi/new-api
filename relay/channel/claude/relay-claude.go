@@ -65,7 +65,9 @@ func RequestOpenAI2ClaudeMessage(c *gin.Context, textRequest dto.GeneralOpenAIRe
 	if strings.HasSuffix(textRequest.Model, "-thinking") {
 		textRequest.Model = strings.TrimSuffix(textRequest.Model, "-thinking")
 
-		if textRequest.MaxTokens < 2048 {
+		if textRequest.MaxTokens == 0 {
+			textRequest.MaxTokens = 8192
+		} else if textRequest.MaxTokens < 2048 {
 			textRequest.MaxTokens = 2048
 		} else if textRequest.MaxTokens > 64000 {
 			c.Request.Header.Set("anthropic-beta", "output-128k-2025-02-19")
