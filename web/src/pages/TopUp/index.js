@@ -210,7 +210,7 @@ const TopUp = () => {
             centered={true}
           >
             <p>
-              充值数量：{topUpCount}$（实到：{chargedAmount}$）
+              充值数量：{topUpCount}（实到：{chargedAmount}$）
             </p>
             <p>实付金额：{renderAmount()}</p>
             <p>是否确认充值？</p>
