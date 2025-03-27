@@ -1,13 +1,13 @@
-FROM node:16 AS builder
+FROM node:16 as builder
 
 WORKDIR /build
 COPY web/package.json .
-RUN npm install
+RUN bun install
 COPY ./web .
 COPY ./VERSION .
-RUN DISABLE_ESLINT_PLUGIN='true' VITE_REACT_APP_VERSION=$(cat VERSION) npm run build
+RUN DISABLE_ESLINT_PLUGIN='true' VITE_REACT_APP_VERSION=$(cat VERSION) bun run build
 
-FROM golang AS builder2
+FROM golang:1.21 AS builder2
 
 ENV GO111MODULE=on \
     CGO_ENABLED=1 \
@@ -25,7 +25,7 @@ FROM alpine
 RUN apk update \
     && apk upgrade \
     && apk add --no-cache ca-certificates tzdata \
-    && update-ca-certificates 2>/dev/null || true
+    && update-ca-certificates
 
 COPY --from=builder2 /build/one-api /
 EXPOSE 3000
