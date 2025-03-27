@@ -2,10 +2,10 @@ FROM node:16 as builder
 
 WORKDIR /build
 COPY web/package.json .
-RUN bun install
+RUN npm install
 COPY ./web .
 COPY ./VERSION .
-RUN DISABLE_ESLINT_PLUGIN='true' VITE_REACT_APP_VERSION=$(cat VERSION) bun run build
+RUN DISABLE_ESLINT_PLUGIN='true' VITE_REACT_APP_VERSION=$(cat VERSION) npm run build
 
 FROM golang:1.21 AS builder2
 
