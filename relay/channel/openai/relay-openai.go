@@ -180,6 +180,11 @@ func OaiStreamHandler(c *gin.Context, resp *http.Response, info *relaycommon.Rel
 		usage, _ = service.ResponseText2Usage(responseTextBuilder.String(), info.UpstreamModelName, info.PromptTokens)
 		usage.CompletionTokens += toolCount * 7
 	}
+	if usage.CompletionTokens == 0 {
+		usage.PromptTokens = 1
+		usage.CompletionTokens = 1
+		usage.TotalTokens = 2
+	}
 
 	if info.ShouldIncludeUsage && !containStreamUsage {
 		response := service.GenerateFinalUsageResponse(responseId, createAt, model, *usage)
