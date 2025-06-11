@@ -19,6 +19,7 @@ type FunctionCall struct {
 
 type GeminiPart struct {
 	Text         string            `json:"text,omitempty"`
+	Thought      bool              `json:"thought,omitempty"`
 	InlineData   *GeminiInlineData `json:"inlineData,omitempty"`
 	FunctionCall *FunctionCall     `json:"functionCall,omitempty"`
 }

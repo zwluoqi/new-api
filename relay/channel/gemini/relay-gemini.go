@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"io"
 	"net/http"
 	"one-api/common"
@@ -12,6 +11,8 @@ import (
 	relaycommon "one-api/relay/common"
 	"one-api/service"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 // Setting safety to the lowest possible values since Gemini is already powerless enough
@@ -192,7 +193,11 @@ func responseGeminiChat2OpenAI(response *GeminiChatResponse) *dto.OpenAITextResp
 			if candidate.Content.Parts[0].FunctionCall != nil {
 				choice.Message.ToolCalls = getToolCalls(&candidate)
 			} else {
-				choice.Message.SetStringContent(candidate.Content.Parts[0].Text)
+				if candidate.Content.Parts[0].Thought {
+					choice.Message.ReasoningContent = &candidate.Content.Parts[0].Text
+				} else {
+					choice.Message.SetStringContent(candidate.Content.Parts[0].Text)
+				}
 			}
 		}
 		fullTextResponse.Choices = append(fullTextResponse.Choices, choice)
