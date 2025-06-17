@@ -215,7 +215,11 @@ func streamResponseGeminiChat2OpenAI(geminiResponse *GeminiChatResponse) *dto.Ch
 			choice.Delta.ToolCalls = getToolCalls(&geminiResponse.Candidates[0])
 		} else {
 			// text response
-			choice.Delta.SetContentString(respFirst.Text)
+			if respFirst.Thought {
+				choice.Delta.ReasoningContent = &respFirst.Text
+			} else {
+				choice.Delta.SetContentString(respFirst.Text)
+			}
 		}
 	}
 	var response dto.ChatCompletionsStreamResponse
