@@ -32,11 +32,13 @@ func (a *Adaptor) ConvertImageRequest(c *gin.Context, info *relaycommon.RelayInf
 }
 
 func (a *Adaptor) Init(info *relaycommon.RelayInfo) {
-	if strings.HasPrefix(info.UpstreamModelName, "claude-3") {
-		a.RequestMode = RequestModeMessage
-	} else {
-		a.RequestMode = RequestModeCompletion
-	}
+	// if strings.HasPrefix(info.UpstreamModelName, "claude-3") {
+	// 	a.RequestMode = RequestModeMessage
+	// } else {
+	// 	a.RequestMode = RequestModeCompletion
+	// }
+	// 不需要兼容旧版本了
+	a.RequestMode = RequestModeMessage
 }
 
 func (a *Adaptor) GetRequestURL(info *relaycommon.RelayInfo) (string, error) {
