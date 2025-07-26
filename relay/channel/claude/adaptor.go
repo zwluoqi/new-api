@@ -9,7 +9,6 @@ import (
 	"one-api/dto"
 	"one-api/relay/channel"
 	relaycommon "one-api/relay/common"
-	"strings"
 )
 
 const (
